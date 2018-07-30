@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Geo Alarm</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_alarm_activity_title">Add Alarm</string>
+    <string name="loc_perm_required">Location Permission Required</string>
+    <string name="tracking_title">Geo Alarm</string>
+    <string name="tracking">Searching for location updates</string>
+    <string name="loc_perm_guide">Tap and enable location permission for Alarm</string>
+</resources>
