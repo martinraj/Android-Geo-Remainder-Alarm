@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private void setAlarm() {
 //        if(getGeoPendingIntent(getApplicationContext(), PendingIntent.FLAG_NO_CREATE) != null) {
             AlarmManager manager = AlarmManagerProvider.getAlarmManager(getApplicationContext());
-            PendingIntent operation = getGeoPendingIntent(getApplicationContext(), PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent operation = getGeoPendingIntent(getApplicationContext(), PendingIntent.FLAG_CANCEL_CURRENT);
             manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+1000, 600 * 1000, operation); //repeat every 5 mins
             Log.d("elasped time",SystemClock.elapsedRealtime()+1000+"");
 //        }else{

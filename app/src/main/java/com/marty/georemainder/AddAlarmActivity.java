@@ -78,7 +78,7 @@ public class AddAlarmActivity extends AppCompatActivity implements GoogleApiClie
                     ga.setActive(true);
                     ga.setAlarmNote(eDescription.getText().toString().trim());
                     ga.setLocation(centerLatLng);
-                    ga.setMeters(DEFAULT_METERS);
+                    ga.setMeters(DEFAULT_METERS); //tolerance value
                     ga.setTriggered(false);
                     AppDB.getDatabase(getBaseContext()).geoAlarmDao().addAlarm(ga);
                     finish();
