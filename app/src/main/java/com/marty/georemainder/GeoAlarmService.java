@@ -10,11 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -182,7 +184,11 @@ public class GeoAlarmService extends Service implements GoogleApiClient.Connecti
 
     public PendingIntent getPendingIntent(boolean isNeedPerm) {
         if(isNeedPerm) {
-            return null;
+            try {
+                return PendingIntent.getActivity(getBaseContext(),0,new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+getPackageName())),FLAG_UPDATE_CURRENT);
+            } catch (Exception e) {
+                return PendingIntent.getActivity(getBaseContext(),0,new Intent(Settings.ACTION_APPLICATION_SETTINGS),FLAG_UPDATE_CURRENT);
+            }
         }else{
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -212,7 +218,7 @@ public class GeoAlarmService extends Service implements GoogleApiClient.Connecti
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notification = mBuilder.setSmallIcon((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ? R.drawable.ic_notification : R.mipmap.ic_launcher).setTicker("Geo Check").setWhen(1)
-                    .setAutoCancel(false)
+                    .setAutoCancel(isPermissionNotify)
                     .setCategory("Alarm")
                     .setContentTitle(isPermissionNotify ? getString(R.string.loc_perm_required) : getString(R.string.tracking_title))
                     .setContentText(isPermissionNotify ? getString(R.string.loc_perm_guide) : getString(R.string.tracking))
@@ -227,7 +233,7 @@ public class GeoAlarmService extends Service implements GoogleApiClient.Connecti
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 notification = mBuilder.setSmallIcon( R.drawable.ic_notification ).setTicker("Geo Check").setWhen(1)
-                        .setAutoCancel(false)
+                        .setAutoCancel(isPermissionNotify)
                         .setCategory(Notification.CATEGORY_SERVICE)
                         .setContentTitle(isPermissionNotify ? getString(R.string.loc_perm_required) : getString(R.string.tracking_title))
                         .setContentText(isPermissionNotify ? getString(R.string.loc_perm_guide) : getString(R.string.tracking))
@@ -242,7 +248,7 @@ public class GeoAlarmService extends Service implements GoogleApiClient.Connecti
                         .build();
             }else{
                 notification = mBuilder.setSmallIcon( R.drawable.ic_notification ).setTicker("Geo Check").setWhen(1)
-                        .setAutoCancel(false)
+                        .setAutoCancel(isPermissionNotify)
                         .setContentTitle(isPermissionNotify ? getString(R.string.loc_perm_required) : getString(R.string.tracking_title))
                         .setContentText(isPermissionNotify ? getString(R.string.loc_perm_guide) : getString(R.string.tracking))
                         .setSound(null)

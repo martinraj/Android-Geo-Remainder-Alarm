@@ -33,7 +33,7 @@
             android:label="@string/add_alarm_activity_title"
             android:configChanges="screenLayout|screenSize|orientation">
             <intent-filter>
-                <action android:name="com.marty.bijilipaytest.ADD_ALARM" />
+                <action android:name="com.marty.georemainder.ADD_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -42,7 +42,7 @@
             android:showOnLockScreen="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
-                <action android:name="com.marty.bijilipaytest.GEO_ALERT" />
+                <action android:name="com.marty.georemainder.GEO_ALERT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -63,7 +63,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAy09G0QnBKk_Kv8Z8D8RF-czjSfC_w6do" />
+            android:value="YOUR_API_KEY" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
